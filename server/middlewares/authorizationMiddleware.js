@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 const jwt = require("jsonwebtoken");
 const secret = 'luoshijiezhenmei' //生成Token 的秘钥
-export default async (ctx, next) => {
+module.exports = async (ctx, next) => {
     let token = ctx.request.headers["token"];
 
     let payload = await jwt.verify(token, secret);
