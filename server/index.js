@@ -18,7 +18,7 @@ app.use(async (ctx, next)=> {
   ctx.set("withCredentials", true)
   ctx.set("Access-Control-Allow-Credentials", true);
   ctx.set('Access-Control-Allow-Origin', '*');
-  ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+  ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild,token');
   ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   if (ctx.method == 'OPTIONS') {
     ctx.body = 200; 

@@ -84,6 +84,7 @@ export default {
           this.$http
             .post("/accounting/auth/login", this.loginForm)
             .then((res) => {
+              console.log(res)
               res = res.data;
               if (res.statusCode == 200) {
                 // 延迟两秒，演示登录按钮加载效果

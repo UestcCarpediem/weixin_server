@@ -12,13 +12,20 @@ import './mock.js'
 
 axios.interceptors.response.use(function (response) {
 	// token 已过期，重定向到登录页面
-	if (response.data.data.statusCode == -1){
-		router.replace({
-                        path: '/login',
-                        query: {hastoken:1}
-                    })
-	}
-	return response
+  console.log(response)
+  try{
+    if (response.data.statusCode == -1){
+      router.replace({
+                          path: '/login',
+                          query: {hastoken:1}
+                      })
+    }
+    return response
+  } catch(err){
+    console.log(err)
+    return response
+  }
+	
 }, function (error) {
 	// Do something with response error
 	return Promise.reject(error)
