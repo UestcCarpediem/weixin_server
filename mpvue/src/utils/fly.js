@@ -22,6 +22,7 @@ fly.interceptors.request.use((request)=>{
 			title: '加载中...',
 			mask: true,
 		})
+		request.headers["weixin"]="1"
 		let token = store.state.token
 		if (!token  || store.state.status == 'error') {
 			console.log('走这')

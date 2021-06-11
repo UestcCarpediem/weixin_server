@@ -8,7 +8,21 @@ import Utils from './common/utils'
 import 'element-ui/lib/theme-chalk/reset.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import './mock.js'
-
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+axios.interceptors.request.use(
+  (config) => {
+    if (true) {
+      // 判断是否存在token，如果存在的话，则每个http header都加上token
+      config.headers.token = Vue.$cookies.get("token")
+      config.headers.Authorization = Vue.$cookies.get("Authorization") // 根据实际情况自行修改
+    }
+    return config;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
 
 axios.interceptors.response.use(function (response) {
 	// token 已过期，重定向到登录页面

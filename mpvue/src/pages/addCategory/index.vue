@@ -150,7 +150,7 @@ export default {
             url: "http://115.231.255.86:5000/accounting/uploadImage",
             filePath: tempFilePaths,
             name: photoName,
-            header: { "Content-Type": "multipart/form-data" },
+            header: { "Content-Type": "multipart/form-data","weixin":"1" },
             formData: {
               source:'2',
             },
@@ -282,11 +282,11 @@ export default {
 }
 .Submission{
   width: 60%;
-  height: 40px;
+  height: 60px;
   background: #6fb1fc;
-  margin: 20px auto;
+  margin: 50px auto;
   text-align: center;
-  line-height: 40px;
+  line-height: 60px;
   color: #fff;
   border-radius: 5px;
 }

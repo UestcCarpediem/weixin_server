@@ -88,12 +88,14 @@ export default {
               res = res.data;
               if (res.statusCode == 200) {
                 // 延迟两秒，演示登录按钮加载效果
+                this.$cookies.set("token",res.toke)
+                this.$cookies.set("Authorization",res.Authorization)
                 this.$http.interceptors.request.use(
                   (config) => {
                     if (true) {
                       // 判断是否存在token，如果存在的话，则每个http header都加上token
-                      config.headers.token = res.token;
-                      config.headers.Authorization = res.Authorization; // 根据实际情况自行修改
+                      config.headers.token = this.$cookies.get("token")
+                      config.headers.Authorization = this.$cookies.get("Authorization") // 根据实际情况自行修改
                     }
                     return config;
                   },

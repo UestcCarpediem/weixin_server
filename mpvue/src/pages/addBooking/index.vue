@@ -165,11 +165,11 @@ export default {
 }
 .Submission{
   width: 60%;
-  height: 40px;
+  height: 60px;
   background: #6fb1fc;
   margin: 20px auto;
   text-align: center;
-  line-height: 40px;
+  line-height: 60px;
   color: #fff;
   border-radius: 5px;
 }

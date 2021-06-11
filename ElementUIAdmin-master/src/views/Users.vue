@@ -336,7 +336,7 @@ export default {
           });
           this.uploading=false
           this.userFormVisible = false;
-          // this.$router.go(0);
+          this.$router.go(0);
           console.log(this.users);
         })
         .catch((err) => {

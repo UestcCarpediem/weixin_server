@@ -11,8 +11,8 @@ function login () {
                         },
                         success:res=>{
                             console.log(res.data)
-                            self.globalData.Token = res.data.Token
-                            store.commit('token', res.data.Token)
+                            // self.globalData.Token = res.data.Token
+                            // store.commit('AUTH_SUCCESS', res.data.Token)
                             resolve(res)
                         }
                     })
