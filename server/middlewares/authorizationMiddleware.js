@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken') //创建token
+
 const mongoose = require('mongoose')
 const jwt = require("jsonwebtoken");
 const secret = 'luoshijiezhenmei' //生成Token 的秘钥
