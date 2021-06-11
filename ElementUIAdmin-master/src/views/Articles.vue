@@ -25,7 +25,7 @@
       @selection-change="selectChange"
       style="width: 100%"
     >
-      <el-table-column type="selection" width="55"> </el-table-column>
+
       <el-table-column sortable prop="date" label="日期" width="180">
       </el-table-column>
       <el-table-column prop="time" label="时间" width="180"> </el-table-column>
@@ -63,9 +63,10 @@
     <el-pagination
       background
       :page-sizes="[10, 20, 30, 50]"
-      :page-size="10"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400"
+      :page-size="20"
+      layout="total, prev, pager, next"
+      :total="total"
+      @current-change="handleCurrentChange"
     >
     </el-pagination>
     <el-dialog
@@ -140,6 +141,7 @@ export default {
         address: "",
         status: 0,
       },
+      total:0,
       userBackup: Object.assign({}, this.user),
       multipleSelection: [],
       userFormVisible: false,
@@ -150,8 +152,18 @@ export default {
   },
   mounted() {
     this.getUsers();
+    this.getDataCount()
   },
   methods: {
+    handleCurrentChange(val){
+      this.pageNum=val
+      this.getUsers()
+    },
+    getDataCount(){
+      this.$http.post("/accounting/getRecordCount").then((res)=>{
+        this.total=res.data.data.dataTotal-res.data.data.dataPending
+      })
+    },
     xhrequest(url) {
       return new Promise((resolve, reject) => {
         //创建XMLHttpRequest对象

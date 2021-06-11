@@ -12,10 +12,7 @@
       :data="users"
       @selection-change="selectChange"
       style="width: 100%">
-      <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
+
       <el-table-column
         sortable
         prop="date"
@@ -60,9 +57,10 @@
     <el-pagination
       background
       :page-sizes="[10, 20, 30, 50]"
-      :page-size="10"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :page-size="20"
+      layout="total, prev, pager, next"
+      @current-change="handleCurrentChange"
+      :total="pending">
     </el-pagination>
     <el-dialog :title="dialogTitle" width="600px" :visible.sync="userFormVisible" @close="resetForm('userForm')">
       <el-form :model="user" :rules="rules" ref="userForm">
@@ -133,18 +131,31 @@ export default {
       userFormVisible: false,
       dialogTitle: '',
       rowIndex: 9999,
+      total:0,
+      pending:0,
       rules: {
       }
     }
   },
   mounted () {
     this.getUsers()
+    this.getDataCount()
   // this.$http.get(
   //             "http://192.168.10.50:80/subject/212",
   //             {params:{category:"employee",name:"313"}}
   //           );
   },
   methods: {
+    handleCurrentChange(val){
+      this.pageNum=val
+      this.getUsers()
+    },
+    getDataCount(){
+      this.$http.post("/accounting/getRecordCount").then((res)=>{
+        this.total=res.data.data.dataTotal
+        this.pending=res.data.data.dataPending
+      })
+    },
     imgUrlToFile(url) {
       var self = this;
       var imgLink = url;
