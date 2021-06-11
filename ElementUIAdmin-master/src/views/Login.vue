@@ -65,6 +65,17 @@ export default {
       textType: "password",
     };
   },
+  mounted(){
+    let token=this.$route.query.hastoken
+    console.log(token)
+    if(token==1){
+    this.$message({
+              type: "error",
+              message: "token过期!",
+            });
+    }
+
+  },
   methods: {
     login(formName) {
       this.$refs[formName].validate((valid) => {

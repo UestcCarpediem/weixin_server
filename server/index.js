@@ -35,7 +35,7 @@ fs.readdirSync(models)
 // 引入自定义中间件
 const userCheck = require('./middlewares/userCheck')
 const errorCatch = require('./middlewares/errorCatch')
-
+const authorizationMiddleware = require('./middlewares/authorizationMiddleware')
 // 错误统一处理
 app.use(errorCatch);
 
@@ -62,6 +62,7 @@ app.use(koaBody({
 // }))
 
 app.use(userCheck)
+app.use(authorizationMiddleware)
 // 引入路由分发
 let userRoutes = require('./routes')
 let addAccountingRoutes = require('./routes/accounting.js')

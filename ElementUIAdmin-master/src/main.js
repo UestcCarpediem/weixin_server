@@ -9,6 +9,22 @@ import 'element-ui/lib/theme-chalk/reset.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import './mock.js'
 
+
+axios.interceptors.response.use(function (response) {
+	// token 已过期，重定向到登录页面
+	if (response.data.data.statusCode == -1){
+		router.replace({
+                        path: '/login',
+                        query: {hastoken:1}
+                    })
+	}
+	return response
+}, function (error) {
+	// Do something with response error
+	return Promise.reject(error)
+})
+
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 axios.interceptors.request.use((config) => {
