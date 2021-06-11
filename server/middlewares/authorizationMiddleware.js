@@ -5,7 +5,7 @@ const secret = 'luoshijiezhenmei' //生成Token 的秘钥
 module.exports = async (ctx, next) => {
     console.log(ctx)
     let url=ctx.request.url
-    if(url.indexOf("login")!=-1){
+    if(url.indexOf("login")!=-1||ctx.request.headers["weixin"]=="1"){
         await next();
     }else{
         let token = ctx.request.headers["token"];
