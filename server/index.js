@@ -15,9 +15,9 @@ let router = new Router();
 
 
 app.use(async (ctx, next)=> {
-  ctx.set("withCredentials", true)
-  ctx.set("Access-Control-Allow-Credentials", true);
-  ctx.set('Access-Control-Allow-Origin', '*');
+  // ctx.set("withCredentials", true)
+  // ctx.set("Access-Control-Allow-Credentials", true);
+  // ctx.set('Access-Control-Allow-Origin', '*');
   ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , weixin,token');
   ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   if (ctx.method == 'OPTIONS') {
