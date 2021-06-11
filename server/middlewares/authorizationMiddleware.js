@@ -3,7 +3,12 @@ const mongoose = require('mongoose')
 const jwt = require("jsonwebtoken");
 const secret = 'luoshijiezhenmei' //生成Token 的秘钥
 module.exports = async (ctx, next) => {
-    let token = ctx.request.headers["token"];
+    console.log(ctx)
+    let url=ctx.request.url
+    if(url.indexOf("login")!=-1){
+        await next();
+    }else{
+        let token = ctx.request.headers["token"];
 
     let payload = await jwt.verify(token, secret);
     let { time, timeout } = payload;
@@ -17,4 +22,6 @@ module.exports = async (ctx, next) => {
             message: 'token 已过期'
         };
     }
+    }
+
 }
