@@ -26,10 +26,10 @@
       <input type="text" class="plan_input" v-model="formList.Name"/>
     </div>
  
-    <div class="plan_list"> 
+    <!-- <div class="plan_list"> 
       <div class="plan_name">身份证号</div>
       <input type="text" class="plan_input" v-model="formList.IDcard"/>
-    </div>
+    </div> -->
  
     <div class="plan_list"> 
       <div class="plan_name">手机号</div>
@@ -147,7 +147,7 @@ export default {
           }),
           console.log(tempFilePaths)
           wx.uploadFile({
-            url: "http://192.168.20.204:5000/accounting/uploadImage",
+            url: "http://115.231.255.86:5000/accounting/uploadImage",
             filePath: tempFilePaths,
             name: photoName,
             header: { "Content-Type": "multipart/form-data" },
@@ -197,9 +197,6 @@ export default {
       }else if(!this.formList.Name){
         this.Tips("请填写名字！")
         return;
-      }else if(!this.formList.IDcard){
-        this.Tips("请填写身份证号！")
-        return;
       }else if(!this.formList.phoneNum){
         this.Tips("请填写手机号！")
         return;
@@ -231,7 +228,7 @@ export default {
               duration: 2000, 
               mask: true, 
             });
-            wx.navigateBack()
+            wx.switchTab({url:'/pages/index/main'})
           }})
       
       }

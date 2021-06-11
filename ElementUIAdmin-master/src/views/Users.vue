@@ -1,13 +1,13 @@
 <template>
   <div class="user-box">
-    <el-row>
+    <!-- <el-row>
       <el-col :span="24">
         <div class="tool-box">
           <el-button type="primary" icon="el-icon-circle-plus-outline" size="small" @click="handleAdd">新增</el-button>
           <el-button type="danger" icon="el-icon-delete" size="small" @click="mulDelete">批量删除</el-button>
         </div>
       </el-col>
-    </el-row>
+    </el-row> -->
     <el-table
       :data="users"
       @selection-change="selectChange"
@@ -43,7 +43,7 @@
           {{ scope.row.checked ? '已审核' : '未审核' }}
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" width="150">
+      <el-table-column label="操作" fixed="right" width="200">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -75,9 +75,9 @@
         <el-form-item label="姓名" label-width="100px">
           <label>{{user.Name}}</label>
         </el-form-item>
-        <el-form-item label="身份证号" label-width="100px">
+        <!-- <el-form-item label="身份证号" label-width="100px">
           <label>{{user.IDcard}}</label>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="手机" label-width="100px">
           <label>{{user.phoneNum}}</label>
         </el-form-item>
@@ -100,8 +100,8 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="userFormVisible = false">取 消</el-button>
-        <el-button type="danger" @click="submitUser(user._id,false)">不通过</el-button>
-        <el-button type="primary" @click="submitUser(user._id,true)">通过</el-button>
+        <el-button type="danger" v-loading="uploading" @click="submitUser(user._id,false)">不通过</el-button>
+        <el-button type="primary" v-loading="uploading" @click="submitUser(user._id,true)">通过</el-button>
       </div>
     </el-dialog>
   </div>
@@ -111,6 +111,8 @@
 export default {
   data () {
     return {
+      uploading:false,
+      step:'',
       ruleForm: {
         coverUrl: "",
         coverFile: ""
@@ -225,7 +227,7 @@ export default {
     handleEdit (index, row) {
       this.dialogTitle = '编辑'
       this.user = Object.assign({}, row)
-      console.log(this.user)
+      console.log(new Date(this.user.date+" "+this.user.time).getTime())
       this.userFormVisible = true
       this.rowIndex = index
       this.imgUrlToFile(this.user.photoUrl)
@@ -248,8 +250,10 @@ export default {
         return 
       }
       console.log(this.ruleForm)
+      this.uploading=true
       this.xhrequest(this.user.photoUrl)
         .then((file) => {
+          this.step=1
           console.log(file)
           let param = new FormData()
           param.append("photo",this.ruleForm.coverFile)
@@ -259,6 +263,7 @@ export default {
           );
         })
         .then((res) => {
+          this.step++
           console.log(res)
           if (res.data.code == 0) {
             let stamp = this.user.time.split(":")[0] * 60 * 60 * 1000;
@@ -278,18 +283,23 @@ export default {
           } else {
             this.$message({
               type: "error",
-              message: "审核失败!",
+              message: "未能检测到人脸!",
             });
             throw "error";
           }
         }).then((res1)=>{
+          this.step++
            if(res1.data.code==0){
+             let tem_photo_id=[]
+             tem_photo_id.push(res1.data.data.id)
             let data = {
-            
+            photo_ids:tem_photo_id,
             name: this.user.Name,
+            purpose:this.user.reason,
+            phone:this.user.phone,
             subject_type:1,
-            start_time:Math.round((new Date().getTime()+4 * 60 * 60 * 1000)/1000),
-            end_time:Math.round((new Date().getTime() + 6 * 60 * 60 * 1000)/1000)
+            start_time:Math.round((new Date(this.user.date+" "+this.user.time).getTime())/1000),
+            end_time:Math.round((new Date(this.user.date+" "+this.user.time).getTime() + 6 * 60 * 60 * 1000)/1000)
           }
           return this.$http.post(
               "http://192.168.10.50:80/subject",
@@ -298,11 +308,12 @@ export default {
            }else{
              this.$message({
               type: "error",
-              message: "审核失败!",
+              message: "上传照片失败!",
             });
            }
         })
         .then((res2) => {
+          this.step++
           if(res2.data.code==0){
             let data = {
             _id: id,
@@ -312,7 +323,7 @@ export default {
           }else{
             this.$message({
               type: "error",
-              message: "审核失败!",
+              message: "添加记录失败!",
             });
           }
           
@@ -323,11 +334,32 @@ export default {
             type: "success",
             message: "审核成功!",
           });
+          this.uploading=false
           this.userFormVisible = false;
           // this.$router.go(0);
           console.log(this.users);
         })
         .catch((err) => {
+          this.uploading=false
+          switch(this.step){
+            case 1:this.$message({
+              type: "error",
+              message: "未能检测到人脸!",
+            });
+            break;
+            case 2:this.$message({
+              type: "error",
+              message: "照片上传失败!",
+            });
+            break;
+            case 3:
+              this.$message({
+              type: "error",
+              message: "添加记录失败!",
+            });
+            break
+          }
+
           console.error(err);
         });
     },

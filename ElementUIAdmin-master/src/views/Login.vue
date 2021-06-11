@@ -1,30 +1,48 @@
 <template>
   <div class="login-box">
-    <el-form :model="loginForm" :rules="rules" ref="loginForm" class="login-form">
+    <el-form
+      :model="loginForm"
+      :rules="rules"
+      ref="loginForm"
+      class="login-form"
+    >
       <h3 class="title">系 统 登 录</h3>
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
           autocomplete="off"
           placeholder="账 号: admin"
-          prefix-icon="el-icon-goods">
+          prefix-icon="el-icon-goods"
+        >
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input :type="textType"
+        <el-input
+          :type="textType"
           v-model="loginForm.password"
           @keyup.native.enter="login('loginForm')"
           autocomplete="off"
           placeholder="密 码: admin"
-          prefix-icon="el-icon-time">
-          <i slot="suffix" class="el-input__icon el-icon-view btn-eye" @click="changeType"></i>
+          prefix-icon="el-icon-time"
+        >
+          <i
+            slot="suffix"
+            class="el-input__icon el-icon-view btn-eye"
+            @click="changeType"
+          ></i>
         </el-input>
       </el-form-item>
-      <el-form-item v-show="showMsg" style="margin-bottom:0;">
+      <el-form-item v-show="showMsg" style="margin-bottom: 0">
         <span class="text-danger">提示：用户名或密码错误，请重试！</span>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="login('loginForm')" class="login-btn" v-loading="loading">登 录</el-button>
+        <el-button
+          type="primary"
+          @click="login('loginForm')"
+          class="login-btn"
+          v-loading="loading"
+          >登 录</el-button
+        >
       </el-form-item>
     </el-form>
   </div>
@@ -32,68 +50,70 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       loginForm: {
-        username: '',
-        password: '',
+        username: "",
+        password: "",
       },
       rules: {
-        username: [
-          { required: true, message: ' ', trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: ' ', trigger: 'blur' }
-        ]
+        username: [{ required: true, message: " ", trigger: "blur" }],
+        password: [{ required: true, message: " ", trigger: "blur" }],
       },
       loading: false,
       showMsg: false,
-      textType: 'password'
-    }
+      textType: "password",
+    };
   },
   methods: {
-    login (formName) {
+    login(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.loading = true
-          this.$http.post('/accounting/auth/login', this.loginForm).then((res) => {
-            res=res.data
-            if (res.statusCode==200) {
-              // 延迟两秒，演示登录按钮加载效果
-              this.$http.interceptors.request.use(
-  config => {
-    if (true) {  
-      // 判断是否存在token，如果存在的话，则每个http header都加上token
-      config.headers.Authorization = res.Authorization; // 根据实际情况自行修改
-    }
-    return config;
-  },
-  err => {
-    return Promise.reject(err);
-  }
-);
+          this.loading = true;
+          this.$http
+            .post("/accounting/auth/login", this.loginForm)
+            .then((res) => {
+              res = res.data;
+              if (res.statusCode == 200) {
+                // 延迟两秒，演示登录按钮加载效果
+                this.$http.interceptors.request.use(
+                  (config) => {
+                    if (true) {
+                      // 判断是否存在token，如果存在的话，则每个http header都加上token
+                      config.headers.token = res.token;
+                      config.headers.Authorization = res.Authorization; // 根据实际情况自行修改
+                    }
+                    return config;
+                  },
+                  (err) => {
+                    return Promise.reject(err);
+                  }
+                );
 
-              setTimeout(() => {
-                this.loading = false
-                sessionStorage.setItem('user', JSON.stringify(this.loginForm))
-                this.$router.replace({ path: '/console' })
-              }, 2000)
-            } else {
-              this.loading = false
-              this.showMsg = true
-            }
-          })
+                setTimeout(() => {
+                  this.loading = false;
+                  sessionStorage.setItem(
+                    "user",
+                    JSON.stringify(this.loginForm)
+                  );
+                  this.$router.replace({ path: "/console" });
+                }, 2000);
+              } else {
+                this.loading = false;
+                this.showMsg = true;
+              }
+            });
         } else {
-          console.log('login failed')
-          return false
+          console.log("login failed");
+          return false;
         }
-      })
+      });
     },
-    changeType () {
-      this.textType = (this.textType === 'password' ? 'text' : 'password')
-    }
-  }
-}
+    changeType() {
+      this.textType = this.textType === "password" ? "text" : "password";
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -101,7 +121,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #20222A;
+  background: #20222a;
   .login-form {
     border-radius: 5px;
     background-clip: padding-box;
@@ -120,7 +140,7 @@ export default {
       cursor: pointer;
     }
     .text-danger {
-      color: #F56C6C;
+      color: #f56c6c;
     }
     .login-btn {
       margin: 35px 0 10px 0;
@@ -128,5 +148,4 @@ export default {
     }
   }
 }
-
 </style>

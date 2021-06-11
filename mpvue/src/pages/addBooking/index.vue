@@ -17,10 +17,10 @@
       <label type="text" class="plan_input" >{{formList.Name}}</label>
     </div>
  
-    <div class="plan_list"> 
+    <!-- <div class="plan_list"> 
       <div class="plan_name">身份证号</div>
       <label type="text" class="plan_input" >{{formList.IDcard}}</label>
-    </div>
+    </div> -->
  
     <div class="plan_list"> 
       <div class="plan_name">手机号</div>
@@ -37,7 +37,7 @@
       <div class="plan_name">来访事由</div>
       <textarea readonly disabled style="white-space:pre-line;height:100px" class="plan_input" v-model="formList.reason" />
     </div>
-    <div class="plan_list" style="height:100px" v-if="!formList.isPassed">
+    <div class="plan_list" style="height:100px" v-if="!formList.isPassed&&formList.checked">
       <div class="plan_name">失败原因</div>
       <textarea readonly disabled style="white-space:pre-line;height:100px" class="plan_input"  v-model="formList.failedReason" />
     </div>

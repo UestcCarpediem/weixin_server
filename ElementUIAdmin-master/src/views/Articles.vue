@@ -1,6 +1,6 @@
 <template>
   <div class="user-box">
-    <el-row>
+    <!-- <el-row>
       <el-col :span="24">
         <div class="tool-box">
           <el-button
@@ -19,7 +19,7 @@
           >
         </div>
       </el-col>
-    </el-row>
+    </el-row> -->
     <el-table
       :data="users"
       @selection-change="selectChange"
@@ -51,12 +51,12 @@
             @click="handleEdit(scope.$index, scope.row)"
             >查看详情</el-button
           >
-          <el-button
+          <!-- <el-button
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button
-          >
+          > -->
         </template>
       </el-table-column>
     </el-table>
@@ -113,7 +113,7 @@
           <label v-else>{{ user.failedReason }}</label>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <!-- <div slot="footer" class="dialog-footer">
         <el-button @click="userFormVisible = false">取 消</el-button>
         <el-button type="danger" @click="submitUser(user._id, false)"
           >不通过</el-button
@@ -121,7 +121,7 @@
         <el-button type="primary" @click="submitUser(user._id, true)"
           >通过</el-button
         >
-      </div>
+      </div> -->
     </el-dialog>
   </div>
 </template>

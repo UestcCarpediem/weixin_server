@@ -1,10 +1,9 @@
 const request = require('request')
 const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken') //°„®™°„?°„®™°„??°„??token
-const secret = 'appIdSessionId' //°„?°„??B°„??°„?°„?Token ???°„???°„???
 const config = require('../config.js')
 const utils = require('../utils')
-
+const jwt = require('jsonwebtoken') //创建token
+const secret = 'luoshijiezhenmei' //生成Token 的秘钥
 
 module.exports = async (ctx, next) => {
     // console.log(ctx)
@@ -54,6 +53,8 @@ module.exports = async (ctx, next) => {
     //   }
     //   console.log(value,option)
     // ctx.cookies.set("sessio","value",option)
-    ctx.body = { statusCode: 200, message: '获取统计数据成功',Authorization:cookie};
+    let payload={time:new Date().getTime(),timeout:1000*60*60}
+    let token = jwt.sign(payload, secret);
+    ctx.body = { statusCode: 200, message: '获取统计数据成功',Authorization:cookie,toke:token};
     // console.log(ctx)
 }

@@ -103,7 +103,12 @@ export default {
     this.pageNum=1
 	// this.getYuyueList(this.pageNum)
   },
-
+  onShow(){
+    this.accList=[]
+    this.pageNum=1
+    this.getYuyueList(this.pageNum)		
+    console.log("刷新了")
+  },
   methods: {
       scroll(e) { 
         console.log(e)
@@ -295,12 +300,7 @@ export default {
     
 
   },
-  onShow () {
-      // this.getBookingList()
-      // this.getAllAmount()
-
-  },
-
+  
 
   onPullDownRefresh() {
     
