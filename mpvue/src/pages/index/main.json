@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "预约进校",
+    "navigationBarBackgroundColor": "#f9db61",
+    "disableScroll":true,
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle":"dark",
+    "onReachBottomDistance": 150
+  }
+  
