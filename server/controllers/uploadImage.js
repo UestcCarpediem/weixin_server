@@ -6,8 +6,7 @@ module.exports = async (ctx, next) => {
     console.log(file);
     const reader = fs.createReadStream(file.path);
     let filePath = path.join(
-        __dirname,
-        "/server/images/upload/" + `${file.name}`
+        "D:/访客小程序/weixin_server/server/images/upload/" + `${file.name}`
     );
     const upStream = fs.createWriteStream(filePath);
     await reader.pipe(upStream);
