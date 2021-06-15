@@ -12,7 +12,7 @@ module.exports = async (ctx, next) => {
         let pending=await AccList.find({isPassed:true,openid:openid})
         ctx.body = { statusCode: 200, message: '获取统计数据成功', data: {
             dataPending:pending.length,
-            dataTotal: aggregate,
+            dataTotal: aggregate.length,
         }};
     } else{
         let total=await AccList.count()
