@@ -14,7 +14,7 @@ const models = path.join(__dirname, './models');
 const secret = 'appIdSessionId' //生成Token 的秘钥
 let router = new Router();
 const sslify = require('koa-sslify').default;
-app.use(sslify());
+// app.use(sslify());
 
 app.use(async (ctx, next)=> {
   // ctx.set("withCredentials", true)
