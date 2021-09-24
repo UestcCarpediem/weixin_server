@@ -3,6 +3,7 @@ const app = new Koa();
 const Router = require('koa-router')
 const path = require('path')
 const cors = require('koa2-cors')
+const https = require('https');//node内置https server
 const fs = require('fs')
 const koaBody = require('koa-body')
 const bodyParser = require('koa-bodyparser')
@@ -12,7 +13,8 @@ const mongoose = require('mongoose')
 const models = path.join(__dirname, './models');
 const secret = 'appIdSessionId' //生成Token 的秘钥
 let router = new Router();
-
+const sslify = require('koa-sslify').default;
+app.use(sslify());
 
 app.use(async (ctx, next)=> {
   // ctx.set("withCredentials", true)
@@ -85,7 +87,14 @@ function connect() {
       .on('error', console.log)
       .on('disconnected', connect)
       .once('open', ()=> {
-        app.listen(5000, () => console.log('[Server] starting at port 5000'))
+        var options = {
+          key: fs.readFileSync('./6337425__uestcydri.com.key'),  //私钥文件路径
+          cert: fs.readFileSync('./6337425__uestcydri.com.pem')  //证书文件路径
+      };
+      https.createServer(options, app.callback()).listen(5000, () => {
+          console.log(`server running success at 5000`)
+      });
+        // app.listen(5000, () => console.log('[Server] starting at port 5000'))
       });
     return mongoose.connect('mongodb://localhost:27017/bookkeepingDemo', { useNewUrlParser: true });
     // return mongoose.connect('mongodb://test:test@localhost:27017/bookkeepingDemo', { useNewUrlParser: true });
