@@ -151,16 +151,13 @@ export default {
 			  	  	if (res.code) {
 				      // 发起网络请求
 				      wx.request({
-				        url: 'https://api.weixin.qq.com/sns/jscode2session',
+				        url: 'https://localhost:5000/user/login',
 				        data: {
-				            appid:'wxe3b39f0d2e2df2a3',  //开发者appid
-				            secret:"47620f4121b6f5c90d8f9838d80236ff", //开发者AppSecret(小程序密钥)	
-				            grant_type:"authorization_code",  //默认authorization_code
 				            js_code: res.code    //wx.login登录获取的code值
 				        },
 				        success(res) {
                   console.log(res)		
-                  wx.setStorageSync('openid', res.data.openid)	
+                  wx.setStorageSync('openid', res.data.Token)	
                   _this.accList=[]
                   _this.pageNum=1
                   _this.getYuyueList(_this.pageNum)		   

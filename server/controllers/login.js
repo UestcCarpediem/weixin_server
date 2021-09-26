@@ -1,7 +1,7 @@
 const request = require('request')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken') //创建token
-const secret = 'appIdSessionId' //生成Token 的秘钥
+const secret = 'fce1e782e52d8d6b3fe2ec2e388cdc30' //生成Token 的秘钥
 const config = require('../config.js')
 const utils = require('../utils')
 
@@ -42,7 +42,8 @@ module.exports = async (ctx, next) => {
         });
     }
     try {
-        resultData = await getAppId(config.appId, config.appSecret, ctx.query.code)
+        console.log(ctx.query.js_code)
+        resultData = await getAppId(config.appId, config.appSecret, ctx.query.js_code)
     } catch (err) {
         ctx.throw(500, err)
     }

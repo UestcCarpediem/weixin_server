@@ -147,7 +147,7 @@ export default {
           }),
           console.log(tempFilePaths)
           wx.uploadFile({
-            url: "http://115.231.255.86:5000/accounting/uploadImage",
+            url: "https://uestcydri.com:5000/accounting/uploadImage",
             filePath: tempFilePaths,
             name: photoName,
             header: { "Content-Type": "multipart/form-data","weixin":"1" },

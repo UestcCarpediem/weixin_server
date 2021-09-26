@@ -3,10 +3,10 @@ const CONF = {
     rootPathname: '/data/release/weapp',
 
     // 微信小程序 App ID
-    appId: 'wxe3b39f0d2e2df2a3',
+    appId: 'wx9de1559167bd7d80',
 
     // 微信小程序 App Secret
-    appSecret: '47620f4121b6f5c90d8f9838d80236ff',
+    appSecret: 'fce1e782e52d8d6b3fe2ec2e388cdc30',
 
 }
 
