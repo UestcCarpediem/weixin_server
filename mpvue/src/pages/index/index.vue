@@ -153,7 +153,7 @@ export default {
 				      wx.request({
 				        url: 'https://uestcydri.com:5000/user/login',
 				        data: {
-				            js_code: res.code    //wx.login登录获取的code值
+				            code: res.code    //wx.login登录获取的code值
 				        },
 				        success(res) {
                   console.log(res)		

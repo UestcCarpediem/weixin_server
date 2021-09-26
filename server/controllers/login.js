@@ -43,7 +43,7 @@ module.exports = async (ctx, next) => {
     }
     try {
         console.log(ctx.query.js_code)
-        resultData = await getAppId(config.appId, config.appSecret, ctx.query.js_code)
+        resultData = await getAppId(config.appId, config.appSecret, ctx.query.code)
     } catch (err) {
         ctx.throw(500, err)
     }

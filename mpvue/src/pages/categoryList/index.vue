@@ -135,8 +135,11 @@ export default {
  
     displayContent(){
       this.api.getUserDetails({openid:wx.getStorageSync('openid')}).then((res)=>{
+        if(res.code==1){
         this.formList=res.data
         this.photoUrl=res.data.photoUrl
+        }
+        
       })
           wx.showToast({
             title: res.message, 
