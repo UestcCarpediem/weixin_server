@@ -97,6 +97,7 @@ export default {
   },
   mounted(){
     //标题
+    console.log(this.formList)
     wx.setNavigationBarTitle({
       title: '提交预约'
     })
@@ -115,8 +116,10 @@ export default {
     //回显
     displayContent(){
      this.api.getUserDetails({openid:wx.getStorageSync('openid')}).then((res)=>{
-        this.formList=res.data
+       if(res.code==1){
+         this.formList=res.data
         this.photoUrl=res.data.photoUrl
+       }
       })
  
    
@@ -186,8 +189,8 @@ export default {
  
     //确定
     complete(){
-
-  console.log(this.formList)
+      console.log(2333)
+  console.log(this.photoUrl)
   this.formList.photoUrl=this.photoUrl
   this.formList.date=this.date
         this.formList.time=this.time

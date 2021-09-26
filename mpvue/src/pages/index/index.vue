@@ -151,7 +151,7 @@ export default {
 			  	  	if (res.code) {
 				      // 发起网络请求
 				      wx.request({
-				        url: 'https://localhost:5000/user/login',
+				        url: 'https://uestcydri.com:5000/user/login',
 				        data: {
 				            js_code: res.code    //wx.login登录获取的code值
 				        },

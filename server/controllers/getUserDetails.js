@@ -19,6 +19,10 @@ module.exports = async (ctx, next) => {
         }
         
     ]);
-
-    ctx.body = { statusCode: 200, message: '获取详情成功', code: 1, data: aggregate[0]};
+    if(aggregate){
+        ctx.body = { statusCode: 200, message: '获取详情成功', code: 1, data: aggregate[0]};
+    }else{
+        ctx.body = { statusCode: 200, message: '获取详情失败', code: 3};
+    }
+    
 }
