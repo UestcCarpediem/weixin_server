@@ -152,6 +152,7 @@ export default {
     //年出栏
     submit(id){
       this.formList.photoUrl=this.photoUrl
+      this.formList.openid=wx.getStorageSync('openid')
       this.api.updateUserDetails(this.formList).then((res)=>{
         console.log(res)
         
