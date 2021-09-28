@@ -186,7 +186,7 @@ module.exports = async (ctx, next) => {
             try {
                 await newUser.save()
                 console.log("注册成功");
-                ctx.body = { statusCode: 200 , message: '获取token成功',Token:token};
+                ctx.body = { statusCode: 200 , message: '获取token成功',Token:resultData.openid};
             } catch (error) {
                 console.log(error);
                 ctx.throw(500, error)
