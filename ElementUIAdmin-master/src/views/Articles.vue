@@ -94,6 +94,9 @@
         <el-form-item label="到访时间" label-width="100px">
           <label>{{ user.time }}</label>
         </el-form-item>
+        <el-form-item label="受访人" label-width="100px">
+          <label>{{ user.interviewees }}</label>
+        </el-form-item>
         <el-form-item label="到访事由" label-width="100px">
           <label>{{ user.reason }}</label>
         </el-form-item>
@@ -218,13 +221,14 @@ export default {
         .then((res) => {
           if (res.code == 0) {
             let stamp = this.user.time.split(":")[0] * 60 * 60 * 1000;
+            let endstamp = this.user.endtime.split(":")[0] * 60 * 60 * 1000;
             let form = {
               photo: file,
               purpose: this.user.reason,
               name: this.user.name,
               subject_type: 1,
               start_time: new Date(this.user.date) + stamp,
-              end_time: new Date(this.user.date) + stamp + 6 * 60 * 60 * 1000,
+              end_time: new Date(this.user.enddate) + endstamp,
               phone: this.user.phoneNum,
             };
             return this.$http.post(

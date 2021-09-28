@@ -11,7 +11,10 @@ module.exports = async (ctx, next) => {
             'IDcard': ctx.request.body.IDcard,
             'date': ctx.request.body.date,
             'time': ctx.request.body.time,
+            'enddate':ctx.request.body.enddate,
+            'endtime':ctx.request.body.endtime,
             'reason': ctx.request.body.reason,
+            'interviewees':ctx.request.body.interviewees,
             'checked': false,
             'isPassed':false,
             'failedReason':''

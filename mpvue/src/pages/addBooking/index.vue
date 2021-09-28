@@ -33,6 +33,12 @@
     <div class="plan_list">
          <div class="plan_name">当天时间 &nbsp;&nbsp;&nbsp;{{formList.time}}</div>
     </div>
+    <div class="plan_list">
+          <div class="plan_name">到访结束日期 &nbsp;&nbsp;&nbsp;{{formList.enddate}}</div>
+    </div>
+    <div class="plan_list">
+         <div class="plan_name">当天时间 &nbsp;&nbsp;&nbsp;{{formList.endtime}}</div>
+    </div>
     <div class="plan_list" style="height:100px">
       <div class="plan_name">来访事由</div>
       <textarea readonly disabled style="white-space:pre-line;height:100px" class="plan_input" v-model="formList.reason" />
@@ -64,6 +70,8 @@ export default {
         phoneNum:'',
         date:'',
         time:'',
+        enddate:'',
+        endtime:'',
         reason:''
       },
       files:''

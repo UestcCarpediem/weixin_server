@@ -57,6 +57,16 @@
       </picker>
     </div>
     <div class="plan_list">
+       <picker class="weui-btn" mode="date" :value="enddate" start="" end="" @change="bindDateChange" style="width:100%">
+          <div class="plan_name">到访结束日期 &nbsp;&nbsp;&nbsp;{{enddate}}</div>
+    </picker>
+    </div>
+    <div class="plan_list">
+       <picker mode="time" :value="endtime" start="09:01" end="21:01" @change="bindTimeChange" style="width:100%">
+         <div class="plan_name">到访结束时间 &nbsp;&nbsp;&nbsp;{{endtime}}</div>
+      </picker>
+    </div>
+    <div class="plan_list">
       <div class="plan_name">来访事由</div>
       <input type="text" class="plan_input" v-model="formList.reason"/>
     </div>
@@ -88,6 +98,8 @@ export default {
       files:'',
       date:'',
       time:'',
+      enddate:'',
+      endtime:'',
       photoUrl:''
     }
   },
@@ -194,6 +206,8 @@ export default {
   this.formList.photoUrl=this.photoUrl
   this.formList.date=this.date
         this.formList.time=this.time
+        this.formList.enddate=this.enddate;
+        this.formList.endtime=this.endtime;
       if(!this.formList.photoUrl){
         this.Tips("请上传本人照片！")
         return;
@@ -209,8 +223,19 @@ export default {
       }else if(!this.formList.time){
         this.Tips("请选择到访时间！")
         return;
+      }else if(!this.formList.enddate){
+        this.Tips("请选择到访结束日期！")
+        return;
+      }else if(!this.formList.endtime){
+        this.Tips("请选择到访结束时间！")
+        return;
       }else{
-
+         let stamp = this.formList.time.split(":")[0] * 60 * 60 * 1000;
+            let endstamp = this.formList.endtime.split(":")[0] * 60 * 60 * 1000;
+          let duration=  new Date(this.formList.enddate)+endstamp-new Date(this.formList.date)-stamp
+          if(duration>3*24*60*60*1000){
+            this.Tips("您的申请时间超过三天，请走线下申请！")
+          }
         this.formList.openid=wx.getStorageSync('openid')	
 
         this.api.addRecord(this.formList).then((res)=>{

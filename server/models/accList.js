@@ -21,7 +21,10 @@ const UserSchema = new Schema({
   reason:String,
   checked:Boolean,
   isPassed:Boolean,
-  failedReason:String
+  failedReason:String,
+  interviewees:String,
+  enddate:String,
+  endtime:String
 });
 
   
