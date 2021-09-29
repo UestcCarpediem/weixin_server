@@ -214,7 +214,7 @@ export default {
       this.xhrequest(this.user.photoUrl)
         .then((file) => {
           return this.$http.post(
-            "http://192.168.10.50:80/subject/photo/check",
+            "/api/subject/photo/check",
             file
           );
         })

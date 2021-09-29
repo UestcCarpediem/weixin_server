@@ -269,7 +269,7 @@ export default {
           let param = new FormData()
           param.append("photo",this.ruleForm.coverFile)
           return this.$http.post(
-            "http://192.168.10.50:80/subject/photo/check",
+            "/api/subject/photo/check",
             param
           );
         })
