@@ -57,7 +57,7 @@ module.exports = async (ctx, next) => {
 
             try {
                 let decoded = await jwt.verify(token, secret)
-                ctx.body = { statusCode: 200, message: '校验成功', Token: user.token };
+                ctx.body = { statusCode: 200, message: '校验成功', Token: resultData.openid };
                 console.log("token校验成功",decoded);
             } catch (err) {
                 if (err && err.name == 'TokenExpiredError') {
