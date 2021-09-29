@@ -57,14 +57,18 @@
       </picker>
     </div>
     <div class="plan_list">
-       <picker class="weui-btn" mode="date" :value="enddate" start="" end="" @change="bindDateChange" style="width:100%">
+       <picker class="weui-btn" mode="date" :value="enddate" start="" end="" @change="bindendDateChange" style="width:100%">
           <div class="plan_name">到访结束日期 &nbsp;&nbsp;&nbsp;{{enddate}}</div>
     </picker>
     </div>
     <div class="plan_list">
-       <picker mode="time" :value="endtime" start="09:01" end="21:01" @change="bindTimeChange" style="width:100%">
+       <picker mode="time" :value="endtime" start="09:01" end="21:01" @change="bindendTimeChange" style="width:100%">
          <div class="plan_name">到访结束时间 &nbsp;&nbsp;&nbsp;{{endtime}}</div>
       </picker>
+    </div>
+    <div class="plan_list">
+      <div class="plan_name">受访人</div>
+      <input type="text" class="plan_input" v-model="formList.interviewees"/>
     </div>
     <div class="plan_list">
       <div class="plan_name">来访事由</div>
@@ -124,6 +128,14 @@ export default {
     bindTimeChange(e){
       console.log(e)
       this.time=e.target.value
+    },
+    bindendDateChange(e){
+      console.log(e)
+      this.enddate=e.target.value
+    },
+    bindendTimeChange(e){
+      console.log(e)
+      this.endtime=e.target.value
     },
     //回显
     displayContent(){
