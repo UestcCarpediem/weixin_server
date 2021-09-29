@@ -8,10 +8,7 @@
 export default {
 
   mounted(){
-     var oMeta = document.createElement('meta');
-     oMeta.httpEquiv='Content-Security-Policy'
-        oMeta.content = 'upgrade-insecure-requests';
-        document.getElementsByTagName('head')[0].appendChild(oMeta);
+     
   }
 }
 </script>

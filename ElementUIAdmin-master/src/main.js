@@ -56,7 +56,7 @@ axios.interceptors.request.use((config) => {
 }, (error) => {
   return Promise.reject(error)
 })
-axios.defaults.baseURL="https://uestcydri.com:5000"
+axios.defaults.baseURL="http://uestcydri.com:5001"
 axios.defaults.withCredentials = true
 Vue.prototype.$http = axios
 Vue.prototype.Utils = Utils
