@@ -151,7 +151,7 @@ export default {
       this.getUsers()
     },
     getDataCount(){
-      this.$http.post("/main_api/accounting/getRecordCount").then((res)=>{
+      this.$http.post("/accounting/getRecordCount").then((res)=>{
         this.total=res.data.data.dataTotal
         this.pending=res.data.data.dataPending
       })
@@ -227,7 +227,7 @@ export default {
         checked:false,
         pageNum:this.pageNum
       }
-      this.$http.post('/main_api/accounting/getRecordReviewed',data).then((res) => {
+      this.$http.post('/accounting/getRecordReviewed',data).then((res) => {
         
         this.users = res.data.data
         console.log(this.users)
@@ -250,7 +250,7 @@ export default {
             isPassed: bool,
             failedReason:this.failedReason
           };
-        this.$http.post("/main_api/accounting/changeReviewStatus", data).then((res)=>{
+        this.$http.post("/accounting/changeReviewStatus", data).then((res)=>{
           this.$message({
             type: "success",
             message: "审核成功!",
@@ -269,7 +269,7 @@ export default {
           let param = new FormData()
           param.append("photo",this.ruleForm.coverFile)
           return this.$http.post(
-            "/api/subject/photo/check",
+            "http://192.168.10.50:80/subject/photo/check",
             param
           );
         })
@@ -288,7 +288,7 @@ export default {
               // form.append("phone",this.user.phoneNum)
             
             return this.$http.post(
-              "/api/subject/photo",
+              "http://192.168.10.50:80/subject/photo",
               form
             );
           } else {
@@ -313,7 +313,7 @@ export default {
             end_time:Math.round((new Date(this.user.date+" "+this.user.time).getTime() + 6 * 60 * 60 * 1000)/1000)
           }
           return this.$http.post(
-              "/api/subject",
+              "http://192.168.10.50:80/subject",
               data
             );
            }else{
@@ -330,7 +330,7 @@ export default {
             _id: id,
             isPassed: bool,
           };
-          return this.$http.post("/main_api/accounting/changeReviewStatus", data);
+          return this.$http.post("/accounting/changeReviewStatus", data);
           }else{
             this.$message({
               type: "error",

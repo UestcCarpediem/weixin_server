@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     getDataCount(){
-      this.$http.post("/main_api/accounting/getRecordCount").then((res)=>{
+      this.$http.post("/accounting/getRecordCount").then((res)=>{
         this.total=res.data.data.dataTotal
         this.pending=res.data.data.dataPending
       })

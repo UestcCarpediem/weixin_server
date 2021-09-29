@@ -163,7 +163,7 @@ export default {
       this.getUsers()
     },
     getDataCount(){
-      this.$http.post("/main_api/accounting/getRecordCount").then((res)=>{
+      this.$http.post("/accounting/getRecordCount").then((res)=>{
         this.total=res.data.data.dataTotal-res.data.data.dataPending
       })
     },
@@ -193,7 +193,7 @@ export default {
         pageNum: this.pageNum,
       };
       this.$http
-        .post("/main_api/accounting/getRecordReviewed", data)
+        .post("/accounting/getRecordReviewed", data)
         .then((res) => {
           this.users = res.data.data;
           console.log(this.users);
@@ -214,7 +214,7 @@ export default {
       this.xhrequest(this.user.photoUrl)
         .then((file) => {
           return this.$http.post(
-            "/api/subject/photo/check",
+            "http://192.168.10.50:80/subject/photo/check",
             file
           );
         })
@@ -232,7 +232,7 @@ export default {
               phone: this.user.phoneNum,
             };
             return this.$http.post(
-              "/api/subject/file",
+              "http://192.168.10.50:80/subject/file",
               form
             );
           } else {
@@ -248,7 +248,7 @@ export default {
             _id: id,
             isPassed: bool,
           };
-          return this.$http.post("/main_api/accounting/changeReviewStatus", data);
+          return this.$http.post("/accounting/changeReviewStatus", data);
         })
         .then((res) => {
           this.users = res.data.data;
