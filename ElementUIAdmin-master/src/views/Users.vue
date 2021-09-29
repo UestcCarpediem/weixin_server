@@ -268,8 +268,8 @@ export default {
           console.log(file)
           let param = new FormData()
           param.append("photo",this.ruleForm.coverFile)
-          return this.$http.post(
-            "http://192.168.10.50:80/subject/photo/check",
+          return this.$http.jsonp(
+            "/ks_api/subject/photo/check",
             param
           );
         })
@@ -288,7 +288,7 @@ export default {
               // form.append("phone",this.user.phoneNum)
             
             return this.$http.post(
-              "http://192.168.10.50:80/subject/photo",
+              "/ks_api/subject/photo",
               form
             );
           } else {
@@ -313,7 +313,7 @@ export default {
             end_time:Math.round((new Date(this.user.date+" "+this.user.time).getTime() + 6 * 60 * 60 * 1000)/1000)
           }
           return this.$http.post(
-              "http://192.168.10.50:80/subject",
+              "/ks_api/subject",
               data
             );
            }else{

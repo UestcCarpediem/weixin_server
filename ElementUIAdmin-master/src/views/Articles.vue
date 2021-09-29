@@ -214,7 +214,7 @@ export default {
       this.xhrequest(this.user.photoUrl)
         .then((file) => {
           return this.$http.post(
-            "http://192.168.10.50:80/subject/photo/check",
+            "/ks_api/subject/photo/check",
             file
           );
         })
@@ -232,7 +232,7 @@ export default {
               phone: this.user.phoneNum,
             };
             return this.$http.post(
-              "http://192.168.10.50:80/subject/file",
+              "/ks_api/subject/file",
               form
             );
           } else {

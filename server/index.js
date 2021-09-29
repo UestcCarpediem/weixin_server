@@ -15,12 +15,33 @@ const secret = 'appIdSessionId' //生成Token 的秘钥
 let router = new Router();
 const sslify = require('koa-sslify').default;
 // app.use(sslify());
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const k2c = require('koa2-connect');
+
+app.use(async (ctx, next) => {
+  const url = ctx.path;
+  console.log(url.startsWith('/ks_api'))
+  if (url.startsWith('/ks_api')) {
+    console.log(url.startsWith('/ks_api'),2333)
+    ctx.respond = false;
+    await k2c(
+      createProxyMiddleware({
+        target: "http://192.168.10.50:80",
+        changeOrigin: true,
+        secure: false,
+      }),
+    )(ctx, next);
+  }
+  return await next();
+});
+
+
 
 app.use(async (ctx, next)=> {
   // ctx.set("withCredentials", true)
   // ctx.set("Access-Control-Allow-Credentials", true);
   ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080');
-  ctx.set('Access-Control-Allow-Origin', 'http://uestcydri.com:5001/');
+  // ctx.set('Access-Control-Allow-Origin', 'http://uestcydri.com:5001');
   ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , weixin,token');
   ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   if (ctx.method == 'OPTIONS') {
