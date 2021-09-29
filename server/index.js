@@ -19,7 +19,7 @@ const sslify = require('koa-sslify').default;
 app.use(async (ctx, next)=> {
   // ctx.set("withCredentials", true)
   // ctx.set("Access-Control-Allow-Credentials", true);
-  // ctx.set('Access-Control-Allow-Origin', '*');
+  ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080,http://uestcydri.com:5001/');
   ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , weixin,token');
   ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   if (ctx.method == 'OPTIONS') {

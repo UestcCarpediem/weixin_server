@@ -82,7 +82,7 @@ export default {
         if (valid) {
           this.loading = true;
           this.$http
-            .post("/accounting/auth/login", this.loginForm)
+            .post("/main_api/accounting/auth/login", this.loginForm)
             .then((res) => {
               console.log(res)
               res = res.data;

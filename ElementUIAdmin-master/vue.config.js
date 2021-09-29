@@ -11,6 +11,14 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/main_api':{
+        target: 'http://uestcydri.com:5001',
+        ws: true,
+        changOrigin: true,
+        pathRewrite: {
+          '^/main_api': ''
+        }
       }
     }
   },
